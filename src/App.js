@@ -1,36 +1,42 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Button} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet, FlatList} from 'react-native';
+import SearchBar from './components/SearchBar/SearchBar';
+import SongCard from './components/SongCard';
+import music_data from './music-data.json';
 
 function App() {
-  const [helloFlag, setHelloFlag] = useState(true);
+  const [list, setList] = useState(music_data);
 
-  function updateFlag() {
-    setHelloFlag(!helloFlag);
-  }
+  const renderSong = ({item}) => <SongCard song={item} />;
+  const renderSeperator = () => <View style={styles.seperator} />;
+  const handleSearch = text => {
+    const filteredList = music_data.filter(song => {
+      const searchedText = text.toLowerCase();
+      const currentTitle = song.title.toLowerCase();
+      return currentTitle.indexOf(searchedText) > -1;
+    });
 
+    setList(filteredList);
+  };
   return (
-    <View>
-      <Text>Hello Lifecycle</Text>
-      <Button title={'Up!'} onPress={updateFlag} />
-      {helloFlag && <Hello />}
+    <View style={styles.container}>
+      <SearchBar onSearch={handleSearch} />
+      <FlatList
+        keyExtractor={item => item.id}
+        data={list}
+        renderItem={renderSong}
+        ItemSeparatorComponent={renderSeperator}
+      />
     </View>
   );
 }
 
 export default App;
 
-function Hello() {
-  useEffect(() => {
-    console.log('Merhaba Dünya');
-
-    return () => {
-      console.log('Gidiyorum bütün aşklar yüreğimde');
-    };
-  }, []);
-
-  return (
-    <View>
-      <Text>I'm Hello Component</Text>
-    </View>
-  );
-}
+const styles = StyleSheet.create({
+  container: {flex: 1},
+  seperator: {
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+});
