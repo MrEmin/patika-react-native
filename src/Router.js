@@ -1,21 +1,22 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+/* import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'; */
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import Welcome from './pages/Welcome';
-import MemberSign from './pages/MemberSign';
-import MemberResult from './pages/MemberResult';
+import Products from './pages/Products';
+import Favorites from './pages/Favorites';
 
-const Stack = createNativeStackNavigator();
+/* const Tab = createBottomTabNavigator(); */
+const Drawer = createDrawerNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="WelcomeScreen" component={Welcome} />
-        <Stack.Screen name="MemberSignScreen" component={MemberSign} />
-        <Stack.Screen name="MemberResultScreen" component={MemberResult} />
-      </Stack.Navigator>
+      <Drawer.Navigator initialRouteName="Products">
+        <Drawer.Screen name="Products" component={Products} />
+        <Drawer.Screen name="Favorites" component={Favorites} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
