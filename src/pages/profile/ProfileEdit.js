@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-function Products() {
+function ProfileEdit() {
   return (
     <View>
-      <Text>Hello Products</Text>
+      <Text>Hello ProfileEdit</Text>
     </View>
   );
 }
 
-export default Products;
+export default ProfileEdit;
