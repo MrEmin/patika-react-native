@@ -7,7 +7,9 @@ function MemberUpdate({navigation}) {
       <Text>Hello MemberUpdate</Text>
       <Button
         title="Profile Edit"
-        onPress={() => navigation.navigate('ProfileEditScreen')}
+        onPress={() =>
+          navigation.navigate('Profile', {screen: 'ProfileEditScreen'})
+        }
       />
     </View>
   );
