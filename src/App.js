@@ -4,7 +4,10 @@ import axios from 'axios';
 
 function App() {
   function fetchData() {
-    axios.get('https://jsonplaceholder.typicode.com/users');
+    axios
+      .get('https://jsonplacehsadasdolder.typicode.com/users')
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
   }
   return (
     <View>
