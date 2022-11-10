@@ -3,11 +3,14 @@ import {View, Text, Button} from 'react-native';
 import axios from 'axios';
 
 function App() {
-  function fetchData() {
-    axios
-      .get('https://jsonplacehsadasdolder.typicode.com/users')
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
+  async function fetchData() {
+    console.log(1);
+    const response = await axios.get(
+      'https://jsonplaceholder.typicode.com/users',
+      console.log(2),
+    );
+    console.log(response);
+    console.log(3);
   }
   return (
     <View>
