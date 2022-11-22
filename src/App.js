@@ -1,23 +1,41 @@
-import React from 'react';
-import {View, Text, Button} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, FlatList, ActivityIndicator} from 'react-native';
 import axios from 'axios';
+import UserCard from './components/UserCard/UserCard';
+
+const URL = 'https://jsonplaceholder.typicode.com/users';
 
 function App() {
-  function fetchData() {
-    console.log(1);
-    axios
-      .get('https://jsonplaceholder.typicode.com/users')
-      .then(response => {
-        console.log(response);
-        console.log(2);
-      })
-      .catch(error => console.log(error));
-    console.log(3);
+  const [loading, setLoading] = useState(true);
+  const [userList, setUserList] = useState([]);
+
+  async function fetchData() {
+    // async & await daha okunabilir ve iyi.
+    /* const response = await axios.get(URL);
+    setLoading(false);
+    setUserList(response.data); */
+    axios.get(URL).then(response => {
+      setLoading(false);
+      setUserList(response.data);
+    });
   }
+
+  const renderUser = ({item}) => (
+    <UserCard name={item.name} username={item.username} email={item.email} />
+  );
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <View>
-      <Text>Hello API</Text>
-      <Button title="Fetch Data" onPress={fetchData} />
+      {loading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <FlatList data={userList} renderItem={renderUser} />
+      )}
+      {/* <Button title="Fetch Data" onPress={fetchData} /> */}
     </View>
   );
 }
